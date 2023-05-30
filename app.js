@@ -92,6 +92,7 @@ async function main() {
 main();
 
 // TODO LIST
+// - [ ] Scale down QR code
 // - [ ] Can we use TS?
 // - [ ] Record live demo and upload to YT
 // - [ ] Twitter publish with previous live demo
