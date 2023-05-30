@@ -1,6 +1,6 @@
 {
   "name": "@lndgalante/wifi-qr",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "bin": "app.js",
   "license": "MIT",
   "author": "Leonardo Galante",

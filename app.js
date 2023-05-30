@@ -45,10 +45,20 @@ function parseNetworkEncryption(networkEncryption) {
   return 'None';
 }
 
+function getTerminalQRCode(ssid, password, encryption) {
+  return qrcode.generateWifiQRCode({
+    ssid,
+    password,
+    encryption,
+    hiddenSSID: false,
+    outputFormat: { type: 'terminal' },
+  });
+}
+
 // CLI
 async function main() {
   try {
-    intro(`Wi-Fi QR 🔐`);
+    intro(`🛜  Wi-Fi QR`);
     const loader = spinner();
 
     // get network ssid and password
@@ -67,22 +77,20 @@ async function main() {
 
     // generate qr code
     loader.start('Generating QR code...');
-    const qr = await qrcode.generateWifiQRCode({
-      ssid,
-      password,
-      encryption,
-      hiddenSSID: false,
-      outputFormat: { type: 'terminal' },
-    });
+    const qr = await getTerminalQRCode(ssid, password, encryption);
     await delay(DELAY);
     loader.stop('QR code generated');
 
-    outro(`Scan this QR code to connect to the "${ssid}" Wi-Fi`);
+    outro(`🤳 Scan this QR code to connect to the "${ssid}" Wi-Fi`);
     console.log(qr);
   } catch (error) {
-    cancel(`Something went wrong: ${error.message}`);
+    cancel(`😭 Something went wrong: ${error.message}`);
     process.exit(0);
   }
 }
 
 main();
+
+// TODO LIST
+// - [ ] Can we use TS?
+// - [ ] Record live demo and upload to YT
