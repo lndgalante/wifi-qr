@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./screenshot.jpg" >
+  <img src="./demo.jpg" >
   <h2 align="center">Wi-Fi QR</h2>
 </p>
 
