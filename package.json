@@ -1,12 +1,12 @@
 {
   "name": "@lndgalante/wifi-qr",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "bin": "app.js",
   "license": "MIT",
   "author": "Leonardo Galante",
   "dependencies": {
     "@clack/prompts": "^0.6.3",
-    "wifi-qr-code-generator": "^1.1.1"
+    "qrcode": "^1.5.3"
   },
   "devDependencies": {
     "@types/node": "^20.2.5"

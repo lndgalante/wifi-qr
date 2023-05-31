@@ -146,7 +146,7 @@ pngjs@^5.0.0:
   resolved "https://registry.yarnpkg.com/pngjs/-/pngjs-5.0.0.tgz#e79dd2b215767fd9c04561c01236df960bce7fbb"
   integrity sha512-40QW5YalBNfQo5yRYmiw7Yz6TKKVr3h6970B2YE+3fQpsWcrbj1PzJgxeJ19DRQjhMbKPIuMY8rFaXc8moolVw==
 
-qrcode@^1.4.4:
+qrcode@^1.5.3:
   version "1.5.3"
   resolved "https://registry.yarnpkg.com/qrcode/-/qrcode-1.5.3.tgz#03afa80912c0dccf12bc93f615a535aad1066170"
   integrity sha512-puyri6ApkEHYiVl4CFzo1tDkAZ+ATcnbJrJ6RiBM1Fhctdn/ix9MTE3hRph33omisEbC/2fcfemsseiKgBPKZg==
@@ -196,13 +196,6 @@ which-module@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/which-module/-/which-module-2.0.1.tgz#776b1fe35d90aebe99e8ac15eb24093389a4a409"
   integrity sha512-iBdZ57RDvnOR9AGBhML2vFZf7h8vmBjhoaZqODJBFWHVtKkDmKuHai3cx5PgVMrX5YDNp27AofYbAwctSS+vhQ==
-
-wifi-qr-code-generator@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/wifi-qr-code-generator/-/wifi-qr-code-generator-1.1.1.tgz#e76e5c649c8fad207e69a3b0b3dedbced4b8403c"
-  integrity sha512-AwxGwDkgQI++U/+uIdr51HBl+UN906VUGwyaKO7ROZAFGDFR/gpNNfosZya99Pftwo8YY8oSyTDAOXWIEPg+Xg==
-  dependencies:
-    qrcode "^1.4.4"
 
 wrap-ansi@^6.2.0:
   version "6.2.0"

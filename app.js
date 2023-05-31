@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
+import QRCode from 'qrcode';
 import { execSync } from 'child_process';
-import qrcode from 'wifi-qr-code-generator';
 import { cancel, intro, outro, spinner } from '@clack/prompts';
 
 // constants
@@ -9,7 +9,7 @@ const DELAY = 400;
 
 const AIRPORT_PATH = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport';
 
-// utils
+// common utils
 function execute(command) {
   return execSync(command).toString().trim();
 }
@@ -18,7 +18,7 @@ function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-// helpers
+// network utils
 function getNetworkSSID() {
   return execute(`${AIRPORT_PATH} -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`);
 }
@@ -45,14 +45,28 @@ function parseNetworkEncryption(networkEncryption) {
   return 'None';
 }
 
-function getTerminalQRCode(ssid, password, encryption) {
-  return qrcode.generateWifiQRCode({
-    ssid,
-    password,
-    encryption,
-    hiddenSSID: false,
-    outputFormat: { type: 'terminal' },
-  });
+// qr utils
+function escapeTagValue(value) {
+  return value.replace(/[\\\;\:\,]/g, '\\$&');
+}
+
+function encodeTag(tag, value) {
+  return `${tag}:${escapeTagValue(value)}`;
+}
+
+function encodeWifiConfig(config) {
+  const type = encodeTag('T', config.type);
+  const ssid = encodeTag('S', config.ssid);
+  const password = encodeTag('P', config.password);
+  const hidden = encodeTag('H', config.hidden ? 'true' : '');
+
+  const payload = [type, ssid, password, hidden].join(';');
+
+  return `WIFI:${payload};;`;
+}
+
+function getTerminalQRCode(config) {
+  return QRCode.toString(config, { type: 'terminal', small: true });
 }
 
 // CLI
@@ -71,13 +85,14 @@ async function main() {
     // get network encryption type
     loader.start('Getting your network encryption type...');
     const networkEncryption = getNetworkEncryption();
-    const encryption = parseNetworkEncryption(networkEncryption);
+    const type = parseNetworkEncryption(networkEncryption);
     await delay(DELAY);
     loader.stop('Network encryption type retrieved');
 
     // generate qr code
     loader.start('Generating QR code...');
-    const qr = await getTerminalQRCode(ssid, password, encryption);
+    const config = encodeWifiConfig({ type, ssid, password, hidden: false });
+    const qr = await getTerminalQRCode(config);
     await delay(DELAY);
     loader.stop('QR code generated');
 
@@ -92,7 +107,6 @@ async function main() {
 main();
 
 // TODO LIST
-// - [ ] Scale down QR code
 // - [ ] Can we use TS?
 // - [ ] Record live demo and upload to YT
 // - [ ] Twitter publish with previous live demo
