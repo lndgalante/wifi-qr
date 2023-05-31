@@ -8,7 +8,7 @@
 </p>
 
 <p align="center">
-  <a href="https://youtu.be/TPl5VZrF2Mgs"><strong>Demo</strong></a> ·
+  <a href="https://www.youtube.com/watch?v=540GZwmAoNM"><strong>Demo</strong></a> ·
   <a href="https://www.npmjs.com/package/@lndgalante/wifi-qr"><strong>NPM</strong></a>
 </p>
 
