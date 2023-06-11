@@ -1,6 +1,6 @@
 {
   "name": "@lndgalante/wifi-qr",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "bin": "app.js",
   "license": "MIT",
   "author": "Leonardo Galante",
@@ -9,7 +9,7 @@
     "qrcode": "^1.5.3"
   },
   "devDependencies": {
-    "@types/node": "^20.2.5"
+    "@types/node": "^20.3.0"
   },
   "type": "module"
 }

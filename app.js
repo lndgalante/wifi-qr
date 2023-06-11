@@ -6,7 +6,6 @@ import { cancel, intro, outro, spinner } from '@clack/prompts';
 
 // constants
 const DELAY = 400;
-
 const AIRPORT_PATH = '/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport';
 
 // common utils
@@ -19,7 +18,7 @@ function delay(ms) {
 }
 
 // network utils
-function getNetworkSSID() {
+function getNetworkSsid() {
   return execute(`${AIRPORT_PATH} -I | awk '/ SSID/ {print substr($0, index($0, $2))}'`);
 }
 
@@ -65,7 +64,7 @@ function encodeWifiConfig(config) {
   return `WIFI:${payload};;`;
 }
 
-function getTerminalQRCode(config) {
+function getTerminalQrCode(config) {
   return QRCode.toString(config, { type: 'terminal', small: true });
 }
 
@@ -75,14 +74,14 @@ async function main() {
     intro(`🛜  Wi-Fi QR`);
     const loader = spinner();
 
-    // get network ssid and password
+    // 1. Get network SSID and password
     loader.start('Getting your network SSID and password...');
-    const ssid = getNetworkSSID();
+    const ssid = getNetworkSsid();
     const password = getNetworkPassword(ssid);
     await delay(DELAY);
     loader.stop('Network SSID and password retrieved');
 
-    // get network encryption type
+    // 2. Get network encryption type
     loader.start('Getting your network encryption type...');
     const networkEncryption = getNetworkEncryption();
     const type = parseNetworkEncryption(networkEncryption);
@@ -92,14 +91,14 @@ async function main() {
     // generate qr code
     loader.start('Generating QR code...');
     const config = encodeWifiConfig({ type, ssid, password, hidden: false });
-    const qr = await getTerminalQRCode(config);
+    const qr = await getTerminalQrCode(config);
     await delay(DELAY);
     loader.stop('QR code generated');
 
     outro(`🤳 Scan this QR code to connect to the "${ssid}" Wi-Fi`);
     console.log(qr);
   } catch (error) {
-    cancel(`😭 Something went wrong: ${error.message}`);
+    cancel(`🚨 Something went wrong: "${error.message}"`);
     process.exit(0);
   }
 }
